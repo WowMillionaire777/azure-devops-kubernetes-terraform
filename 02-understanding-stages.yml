@@ -14,10 +14,10 @@ stages:
     - bash: echo $(Build.BuildNumber)
     - bash: echo $(Build.BuildId)
     - bash: echo $(Build.SourceBranchName)
-    - bash: echo $(Build.SourceDirectory)
+    - bash: echo $(Build.SourcesDirectory)
     - bash: echo $(System.DefaultWorkingDirectory)
     - bash: ls -R $(System.DefaultWorkingDirectory)
-    - bash: echo $(Build.ArtifactsStagingDirectory)
+    - bash: echo $(Build.ArtifactStagingDirectory)
   # - job: SecondJob
   #   steps:
   #   - bash: echo Build SecondJob
