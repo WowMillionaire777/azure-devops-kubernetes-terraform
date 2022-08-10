@@ -20,7 +20,7 @@ stages:
       displayName: Build an image
       inputs:
         containerRegistry: 'presjkit-docker-hub'
-        repository: 'in28min/currency-exchange-devops'
+        repository: 'presjkit/currency-exchange-devops'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
