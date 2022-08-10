@@ -52,7 +52,7 @@ stages:
     steps:
     - task: KubernetesManifest@0
       displayName: Deploy app to K8S Cluster
-      name: 'deploy'
+      name: deploy
       inputs:
         action: 'deploy'
         kubernetesServiceConnection: 'azure-kubernetes-connection'
