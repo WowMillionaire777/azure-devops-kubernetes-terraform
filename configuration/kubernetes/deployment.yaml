@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: currency-exchange
-        image: presjkit/currency-exchange-devops
+        image: presjkit/currency-exchange-devops:194
         imagePullPolicy: IfNotPresent
         ports:
         - name: liveness-port
