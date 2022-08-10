@@ -24,7 +24,7 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        containerRegistry: 'WowMillionaire777-docker-hub'
+        containerRegistry: 'presjkit-docker-hub'
         repository: 'presjkit/currency-exchange-devops'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
@@ -45,7 +45,7 @@ stages:
   - job: Deploy
     displayName: Deploy
     pool:
-      vmImage: ubuntu-latest
+      vmImage: 'ubuntu-latest'
     steps:
     - task: DownloadPipelineArtifact@2
       inputs:
@@ -58,7 +58,7 @@ stages:
         action: 'deploy'
         kubernetesServiceConnection: 'azure-kubernetes-connection'
         namespace: 'default'
-        manifests: '$(System.ArtifactsDirectory)//configuration/kubernetes/deployment.yaml'
+        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
         containers: 'presjkit/currency-exchange-devops:$(tag)'
 # Stage 2
 # Download the K8S Files
