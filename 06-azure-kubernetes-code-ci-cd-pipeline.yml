@@ -58,7 +58,7 @@ stages:
         action: 'deploy'
         kubernetesServiceConnection: 'azure-kubernetes-connection'
         namespace: 'default'
-        manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
+        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
         containers: 'presjkit/currency-exchange-devops:$(tag)'
 # Stage 2
 # Download the K8S Files
