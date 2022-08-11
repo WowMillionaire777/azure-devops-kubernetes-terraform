@@ -28,7 +28,7 @@ stages:
     - task: Bash@3
       inputs:
         targetType: inline
-        script: echo Build $(Build.BuildId)
+        script: echo Build ID is $(Build.BuildId)
     - task: Bash@3
       inputs:
         targetType: inline
