@@ -63,4 +63,4 @@ stages:
           action: 'deploy'
           kubernetesServiceConnection: 'azure-kubernetes-connection'
           namespace: 'default'
-          manifests: '$(Pipeline.Workspace)/manifests/deployment.yml'
+          manifests: '$(Pipeline.Workspace)/manifests/deployment.yaml'
