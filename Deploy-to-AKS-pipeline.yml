@@ -50,14 +50,14 @@ stages:
           buildType: 'current'
           artifactName: 'manifests'
           targetPath: '$(Pipeline.Workspace)/manifests'
-      - task: KubernetesManifest@0
-        inputs:
-          action: 'createSecret'
-          kubernetesServiceConnection: 'azure-kubernetes-connection'
-          namespace: 'default'
-          secretType: 'dockerRegistry'
-          secretName: '$(dockersecret)'
-          dockerRegistryEndpoint: 'presjkit-docker-hub'
+      # - task: KubernetesManifest@0
+      #   inputs:
+      #     action: 'createSecret'
+      #     kubernetesServiceConnection: 'azure-kubernetes-connection'
+      #     namespace: 'default'
+      #     secretType: 'dockerRegistry'
+      #     secretName: '$(dockersecret)'
+      #     dockerRegistryEndpoint: 'presjkit-docker-hub'
       - task: KubernetesManifest@0
         inputs:
           action: 'deploy'
