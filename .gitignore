@@ -32,3 +32,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Secrets ###
+azure_rsa
+azure_rsa.pub
+*.pub
