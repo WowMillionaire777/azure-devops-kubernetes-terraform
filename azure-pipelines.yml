@@ -6,7 +6,7 @@ resources:
 - repo: self
 
 variables:
-  imageRepo: currency-exchange-devops
+  imageRepo: presjkit/currency-exchange-devops
   tag: '$(Build.BuildId)'
 
 stages:
