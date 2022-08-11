@@ -20,6 +20,10 @@ stages:
     - task: Bash@3
       inputs:
         targetType: inline
+        script: echo Pipeline Workspace is $(Pipeline.Workspace)
+    - task: Bash@3
+      inputs:
+        targetType: inline
         script: echo Build $(Build.BuildNumber)
     - task: Bash@3
       inputs:
