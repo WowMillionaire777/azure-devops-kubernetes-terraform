@@ -32,7 +32,7 @@ stages:
     - task: Bash@3
       inputs:
         targetType: inline
-        script: echo $(Build.SourcesDirectory)
+        script: echo Build Source Directory is $(Build.SourcesDirectory)
     - task: Bash@3
       inputs:
         targetType: inline
