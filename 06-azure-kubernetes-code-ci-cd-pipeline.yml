@@ -39,22 +39,34 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '$(dockerfilePath)'
         tags: '$(tag)'
-    - upload: manifests
-      artifact: manifests
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Pipeline.Workspace)/s/configuration/kubernetes'
+        artifact: 'manifests'
+        publishLocation: 'pipeline'
 
 - stage: Deploy
   displayName: Deploy stage
+  dependsOn: Build
   jobs:  
    - deployment: Deploy
      displayName: Deploy
      pool:
       vmImage: $(vmImageName)
      environment:
-      name: 'WowMillionaire777azuredevopskubernetesterraformpipeline.default'
+      name: 'test'
      strategy:
       runOnce:
         deploy:
           steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: 'manifests'
+              itemPattern: |
+                **/*.yml
+                **/*.yaml
+              targetPath: '$(Pipeline.Workspace)/manifests'
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
