@@ -6,9 +6,6 @@ resources:
   - repository: self
 
 variables:
-<<<<<<< HEAD
-- name: dockerRegistryServiceConnection
-  value: '574206fa-ecb5-4da2-8344-0f546fec341e'
 - name: imageRepository
   value: 'presjkit/currency-exchange-devops'
 - name: containerRegistry
@@ -19,9 +16,6 @@ variables:
   value: '$(Build.BuildId)'
 - name: vmImageName
   value: 'ubuntu-latest'
-=======
-  tag: '$(Build.BuildId)'
->>>>>>> 54a3730978b4b1c203d56de1bd891d54d3c66a68
 
 stages:
 
@@ -29,7 +23,6 @@ stages:
 # Build Docker Image
 # Publish the K8S Files
 
-<<<<<<< HEAD
 - stage: Build
   displayName: Build image
   jobs:
@@ -41,26 +34,14 @@ stages:
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
+        containerRegistry: '$(containerRegistry)'
+        repository: '$(imageRepository)'
         command: 'buildAndPush'
-        repository: $(imageRepository)
-        Dockerfile: $(dockerfilePath)
-        containerRegistry: $(containerRegistry)
-        tags: |
-          $(tag)
+        Dockerfile: '$(dockerfilePath)'
+        tags: '$(tag)'
     - upload: manifests
       artifact: manifests
-    # - task: CopyFiles@2
-    #   inputs:
-    #     SourceFolder: '$(System.DefaultWorkingDirectory)'
-    #     Contents: |
-    #       **/*.yaml
-    #       **/*.yml
-    #     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    # - task: PublishBuildArtifacts@1
-    #   inputs:
-    #     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    #     ArtifactName: 'mainfests'
-    #     publishLocation: 'Container'
+
 - stage: Deploy
   displayName: Deploy stage
   jobs:  
@@ -81,78 +62,8 @@ stages:
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
-              imagePullSecrets: |
-                $(imagePullSecret)
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
-          # - task: KubernetesManifest@0
-          #   displayName: Create imagePullSecret
-          #   inputs:
-          #     action: createSecret
-          #     secretName: $(imagePullSecret)
-          #     dockerRegistryEndpoint: $(dockerRegistryServiceConnectio  
-    # steps:
-    # - task: KubernetesManifest@0
-    #   displayName: Deploy app to K8S Cluster
-    #   name: deploy
-    #   inputs:
-    #     action: 'deploy'
-    #     kubernetesServiceConnection: 'azure-kubernetes-connection'
-    #     namespace: 'default'
-    #     manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
-    #     containers: 'presjkit/currency-exchange-devops:$(tag)'
-=======
-# - stage: Build
-#   displayName: Build image
-#   jobs:  
-#   - job: Build
-#     displayName: Build
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     steps:
-#     - task: Docker@2
-#       inputs:
-#         containerRegistry: 'presjkit-docker-hub'
-#         repository: 'presjkit/currency-exchange-devops'
-#         command: 'buildAndPush'
-#         Dockerfile: '**/Dockerfile'
-#         tags: '$(tag)'
-#     - task: CopyFiles@2
-#       inputs:
-#         SourceFolder: '$(System.DefaultWorkingDirectory)'
-#         Contents: |
-#           **/*.yaml
-#           **/*.yml
-#         TargetFolder: '$(Build.ArtifactStagingDirectory)'
-#     - task: PublishBuildArtifacts@1
-#       inputs:
-#         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#         ArtifactName: 'manifests'
-#         publishLocation: 'Container'
-# - stage: Deploy
-#   displayName: Deploy image
-#   jobs:  
-#   - job: Deploy
-#     displayName: Deploy
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     steps:
-#     - task: DownloadPipelineArtifact@2
-#       inputs:
-#         buildType: 'current'
-#         artifactName: 'manifests'
-#         itemPattern: |
-#           **/*.yaml
-#           **/*.yml
-#         targetPath: '$(System.ArtifactsDirectory)'
-#     - task: KubernetesManifest@0
-#       inputs:
-#         action: 'deploy'
-#         kubernetesServiceConnection: 'azure-kubernetes-connection'
-#         namespace: 'default'
-#         manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
-#         containers: 'in28min/currency-exchange-devops:$(tag)'
->>>>>>> 54a3730978b4b1c203d56de1bd891d54d3c66a68
 # Stage 2
 # Download the K8S Files
 # Deploy to K8S Cluster with Docker Image
