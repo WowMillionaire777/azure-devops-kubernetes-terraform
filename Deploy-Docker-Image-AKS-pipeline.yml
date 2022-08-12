@@ -28,11 +28,15 @@ stages:
           $(tag)
           latest
     - bash: echo Pipeline ID is $(System.DefinitionId)
-    - task: PublishPipelineArtifact@1
+    - task: DownloadPipelineArtifact@2
       inputs:
-        targetPath: '$(Pipeline.Workspace)'
-        artifact: 'manifests'
-        publishLocation: 'pipeline'
+        artifact: 'WebApp'
+        path: $(Build.SourcesDirectory)/bin
+#     - task: PublishPipelineArtifact@1
+#       inputs:
+#         targetPath: '$(Pipeline.Workspace)'
+#         artifact: 'manifests'
+#         publishLocation: 'pipeline'
         
 # - stage: Deploy
 #   displayName: Deploy to Dev
