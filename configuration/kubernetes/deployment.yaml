@@ -67,5 +67,5 @@ spec:
     targetPort: 8000 #CHANGE
   selector:
     app: currency-exchange
-  sessionAffinity: None #CHANGE
+  sessionAffinity: None #CHANG
   type: LoadBalancer
