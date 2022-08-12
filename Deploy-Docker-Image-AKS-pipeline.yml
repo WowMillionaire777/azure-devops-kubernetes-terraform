@@ -63,3 +63,4 @@ stages:
           kubernetesServiceConnection: 'azure-kubernetes-connection'
           namespace: 'default'
           manifests: '$(Pipeline.Workspace)/manifests'
+          containers: 'in28min/currency-exchange-devops:$(tag)' 
