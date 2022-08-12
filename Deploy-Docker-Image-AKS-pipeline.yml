@@ -1,0 +1,67 @@
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  imageRepo: presjkit/currency-exchange-devops
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        containerRegistry: 'presjkit-docker-hub'
+        repository: '$(imageRepo)'
+        command: 'buildAndPush'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: |
+          $(tag)
+          latest
+    - bash: echo Pipeline ID is $(System.DefinitionId)
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Pipeline.Workspace)'
+        artifact: 'manifests'
+        publishLocation: 'pipeline'
+        
+# - stage: Deploy
+#   displayName: Deploy to Dev
+#   dependsOn: Build
+#   variables: 
+#     dockersecret: k8sexampleacrauth
+#   jobs:
+#     - job: Deploy
+#       displayName: Deploy to AKS
+#       pool:
+#         vmImage: ubuntu-latest
+#       steps:
+#       - task: DownloadPipelineArtifact@2
+#         inputs:
+#           buildType: 'current'
+#           artifactName: 'manifests'
+#           targetPath: '$(Pipeline.Workspace)/manifests'
+      # - task: KubernetesManifest@0
+      #   inputs:
+      #     action: 'createSecret'
+      #     kubernetesServiceConnection: 'azure-kubernetes-connection'
+      #     namespace: 'default'
+      #     secretType: 'dockerRegistry'
+      #     secretName: '$(dockersecret)'
+      #     dockerRegistryEndpoint: 'presjkit-docker-hub'
+      # - task: KubernetesManifest@0
+      #   inputs:
+      #     action: 'deploy'
+      #     kubernetesServiceConnection: 'azure-kubernetes-connection'
+      #     namespace: 'default'
+      #     manifests: '$(Pipeline.Workspace)/manifests'
+      #     containers: 'in28min/currency-exchange-devops:$(tag)' 
