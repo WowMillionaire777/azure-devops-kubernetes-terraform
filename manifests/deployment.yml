@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: tcurrencydevopsexchange 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tcurrencydevopsexchange
+  template:
+    metadata:
+      labels:
+        app: tcurrencydevopsexchange 
+    spec:
+      containers:
+        - name: tcurrencydevopsexchange 
+          image: acrkubernetesdevxyz.azurecr.io/tcurrencydevopsexchange
+          ports:
+          - containerPort: 8000

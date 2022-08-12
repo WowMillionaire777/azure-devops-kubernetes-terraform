@@ -20,11 +20,15 @@ stages:
     - task: Bash@3
       inputs:
         targetType: inline
+        script: echo Pipeline Workspace is $(Pipeline.Workspace)
+    - task: Bash@3
+      inputs:
+        targetType: inline
         script: echo Build $(Build.BuildNumber)
     - task: Bash@3
       inputs:
         targetType: inline
-        script: echo Build $(Build.BuildId)
+        script: echo Build ID is $(Build.BuildId)
     - task: Bash@3
       inputs:
         targetType: inline
@@ -32,7 +36,7 @@ stages:
     - task: Bash@3
       inputs:
         targetType: inline
-        script: echo $(Build.SourcesDirectory)
+        script: echo Build Source Directory is $(Build.SourcesDirectory)
     - task: Bash@3
       inputs:
         targetType: inline
