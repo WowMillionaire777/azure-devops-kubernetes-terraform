@@ -75,6 +75,6 @@ stages:
               kubernetesServiceConnection: 'azure-kubernetes-service-connection'
               namespace: 'default'
               manifests: '$(Pipeline.Workspace)/manifests/deployment.yaml'
-              containers: 'presjkit/currency-exchange-devops:${tag}'
+              containers: 'presjkit/currency-exchange-devops:$(tag)'
 # Download the K8S Files
 # Deploy to K8S Cluster with Docker Image
