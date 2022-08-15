@@ -6,7 +6,7 @@ resources:
   - repository: self
 
 variables:
-  tag: 255
+  tag: '$(Build.BuildId)'
 # - name: imageRepository
 #   value: 'presjkit/currency-exchange-devops'
 # - name: containerRegistry
@@ -32,14 +32,14 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    # - task: Docker@2
-    #   displayName: Build and push an image to container registry
-    #   inputs:
-    #     containerRegistry: '$(containerRegistry)'
-    #     repository: '$(imageRepository)'
-    #     command: 'buildAndPush'
-    #     Dockerfile: '$(dockerfilePath)'
-    #     tags: '$(tag)'
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        containerRegistry: 'presjkit-docker-hub'
+        repository: 'presjkit/currency-exchange-devops'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(tag)'
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Pipeline.Workspace)/s/configuration/kubernetes'
