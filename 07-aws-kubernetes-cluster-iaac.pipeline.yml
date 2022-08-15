@@ -7,6 +7,7 @@ pool:
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
+# terraform init
 - task: TerraformTaskV3@3
   inputs:
     provider: 'aws'
@@ -15,6 +16,16 @@ steps:
     backendServiceAWS: 'aws-for-terraform'
     backendAWSBucketName: 'terraform-backend-state-5678'
     backendAWSKey: 'kubernetes-dev.tfstate'
-# init - backend
-# apply 
-
+# terraform validate    
+- task: TerraformTaskV3@3
+  inputs:
+    provider: 'aws'
+    command: 'validate'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
+# terraform apply
+- task: TerraformTaskV3@3
+  inputs:
+    provider: 'aws'
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
+    environmentServiceNameAWS: 'aws-for-terraform'
