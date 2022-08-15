@@ -40,7 +40,7 @@ module "in28minutes-cluster" {
   vpc_id          = vpc-0cbc98d2667f37c82
   #vpc_id         = "vpc-0cbc98d2667f37c82"
 
-  node_groups = [
+  self_managed_node_groups_defaults = [
     {
       instance_type = "t2.micro"
       max_capacity  = 5
