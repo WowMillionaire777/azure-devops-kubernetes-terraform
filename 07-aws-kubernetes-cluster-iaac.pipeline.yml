@@ -28,7 +28,8 @@ steps:
     provider: 'aws'
     command: 'plan'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
-    
+    environmentServiceNameAWS: 'aws-for-terraform'
+
 - task: TerraformTaskV3@3
   inputs:
     provider: 'aws'
