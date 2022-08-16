@@ -9,6 +9,7 @@ steps:
   displayName: 'Run a one-line script'
 # terraform init
 - task: TerraformTaskV3@3
+  displayName: Terraform init
   inputs:
     provider: 'aws'
     command: 'init'
@@ -18,12 +19,14 @@ steps:
     backendAWSKey: 'kubernetes-dev.tfstate'   
 
 - task: TerraformTaskV3@3
+  displayName: Terraform validate
   inputs:
     provider: 'aws'
     command: 'validate'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
 
 - task: TerraformTaskV3@3
+  displayName: Terraform plan
   inputs:
     provider: 'aws'
     command: 'plan'
@@ -31,6 +34,7 @@ steps:
     environmentServiceNameAWS: 'aws-for-terraform'
 
 - task: TerraformTaskV3@3
+  displayName: Terraform apply
   inputs:
     provider: 'aws'
     command: 'apply'
